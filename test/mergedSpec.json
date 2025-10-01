@@ -1,0 +1,191 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Combined OpenAPI Schema",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/weather": {
+      "get": {
+        "summary": "Get weather by city name",
+        "parameters": [
+          {
+            "name": "city",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Weather data retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WeatherResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products": {
+      "post": {
+        "summary": "Create a new product",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/E-Commerce API_ProductInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "E-Commerce API_Product created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/E-Commerce API_Product"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "summary": "Get user profile",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User Management API_User profile retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User Management API_User"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "WeatherResponse": {
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": "string",
+            "example": "London"
+          },
+          "temperature": {
+            "type": "number",
+            "format": "float",
+            "example": 18.5
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "Celsius",
+              "Fahrenheit"
+            ],
+            "example": "Celsius"
+          },
+          "description": {
+            "type": "string",
+            "example": "Partly cloudy"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-05-12T14:00:00Z"
+          }
+        }
+      },
+      "E-Commerce API_ProductInput": {
+        "type": "object",
+        "required": [
+          "name",
+          "price"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Wireless Mouse"
+          },
+          "description": {
+            "type": "string",
+            "example": "A comfortable wireless mouse with ergonomic design."
+          },
+          "price": {
+            "type": "number",
+            "format": "float",
+            "example": 29.99
+          }
+        }
+      },
+      "E-Commerce API_Product": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/E-Commerce API_ProductInput"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "p456"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time",
+                "example": "2023-02-15T09:45:00Z"
+              }
+            }
+          }
+        ]
+      },
+      "User Management API_User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "u123"
+          },
+          "name": {
+            "type": "string",
+            "example": "Alice Johnson"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "alice@example.com"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-01-10T12:34:56Z"
+          }
+        }
+      }
+    }
+  }
+}

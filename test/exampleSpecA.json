@@ -1,0 +1,68 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Weather API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/weather": {
+      "get": {
+        "summary": "Get weather by city name",
+        "parameters": [
+          {
+            "name": "city",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Weather data retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WeatherResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "WeatherResponse": {
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": "string",
+            "example": "London"
+          },
+          "temperature": {
+            "type": "number",
+            "format": "float",
+            "example": 18.5
+          },
+          "unit": {
+            "type": "string",
+            "enum": ["Celsius", "Fahrenheit"],
+            "example": "Celsius"
+          },
+          "description": {
+            "type": "string",
+            "example": "Partly cloudy"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-05-12T14:00:00Z"
+          }
+        }
+      }
+    }
+  }
+}

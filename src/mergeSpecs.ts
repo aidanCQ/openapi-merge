@@ -4,9 +4,7 @@ import { type Spec } from './types';
 export default function mergeSpecs(specs: Spec[]): Spec {
     return R.pipe(
         specs,
-
         R.tap(specs => {
-
             const titles = specs.map(({ info }) => info.title);
             const versions = specs.map(({ openapi }) => openapi);
             const has_duplicate_titles = (R.unique(titles).length === titles.length) === false

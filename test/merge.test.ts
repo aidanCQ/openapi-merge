@@ -1,8 +1,10 @@
+import * as R from 'remeda'
 import { expect, test } from 'vitest'
-// import exampleSpecA from './exampleSpecA.json'
-// import exampleSpecB from './exampleSpecB.json'
-// import exampleSpecC from './exampleSpecC.json'
-
-test('adds 1 + 2 to equal 3', () => {
-  expect(1+ 2).toBe(3)
+import mergeSpecs from '../src/mergeSpecs'
+import exampleSpecA from './exampleSpecA.json'
+import exampleSpecB from './exampleSpecB.json'
+import exampleSpecC from './exampleSpecC.json'
+test('Merged spec is as expected.', () => {
+  const mergedSpec = R.pipe([exampleSpecA, exampleSpecB, exampleSpecC], mergeSpecs);
+  expect(mergedSpec).toEqual(mergedSpec)
 })
