@@ -35,7 +35,7 @@ export default function mergeSpecs(specs: Spec[]): Spec {
         spec => ({
             ...spec,
             info: {
-                title: specs.map(({ info }) => info.title).join("+"),
+                title: specs.map(({ info }) => info.title.replaceAll(" ", "_")).join("+"),
                 version: spec.info.version
             }
         })
