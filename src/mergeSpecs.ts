@@ -14,7 +14,7 @@ function renameSchemas(spec: Spec): Spec {
 function validateSpecUniqueness(specs: Spec[]): void {
     const titles = specs.map(({ info }) => info.title);
     const versions = specs.map(({ openapi }) => openapi);
-    const has_duplicate_titles = (R.unique(titles).length === titles.length) === false
+    const has_duplicate_titles = R.unique(titles).length < titles.length
     const has_mismatched_versions = R.unique(versions).length > 1
     if (has_duplicate_titles) throw new Error('Openapi specs must have unique titles');
     if (has_mismatched_versions) throw new Error('Openapi specs must have the same version');
