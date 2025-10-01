@@ -2,6 +2,7 @@ import * as R from 'remeda';
 import mergeSpecs from './mergeSpecs';
 import readSpecFromFile from './readSpecFromFile';
 
+
 R.pipe(
     process.argv.slice(2),
     R.map(readSpecFromFile),

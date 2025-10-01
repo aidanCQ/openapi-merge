@@ -1,16 +1,11 @@
 {
   "name": "openapi-merge",
-  "module": "merge.ts",
-  "scripts": {
-    "test": "vitest"
-  },
   "author": {
     "email": "aidan.keay@quantinuum.com",
     "name": "aidanCQ",
     "url": "https://github.com/aidanCQ/openapi-merge"
   },
-  "type": "module",
-  "private": true,
+  "module": "merge.ts",
   "devDependencies": {
     "@types/bun": "latest",
     "immer": "^10.1.3",
@@ -18,5 +13,10 @@
     "typescript": "^5",
     "vitest": "^3.2.4",
     "zod": "^4.1.11"
-  }
+  },
+  "private": true,
+  "scripts": {
+    "test": "vitest"
+  },
+  "type": "module"
 }
