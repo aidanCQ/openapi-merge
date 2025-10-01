@@ -1,5 +1,6 @@
 import * as R from 'remeda';
-import { type Spec } from './types';
+import z from 'zod';
+import { specSchema, type Spec } from './types';
 
 function renameSchemas(spec: Spec): Spec {
     const key_map = R.pipe(spec.components.schemas, R.keys(), (old_keys) => old_keys.map(old_key => ({ old_key, new_key: `${spec.info.title}_${old_key}` })));
@@ -24,16 +25,17 @@ function deepMergeSpecs(specs: Spec[]): Spec {
     return rest.reduce((acc, spec) => R.mergeDeep(acc, spec), first)
 }
 
-export default function mergeSpecs(specs: Spec[]): Spec {
+export default function mergeSpecs(specs: Spec[], title: string): Spec {
     return R.pipe(
         specs,
+        z.array(specSchema).min(2, { error: 'Please provide at least 2 openapi spec paths.' }).parse,
         R.tap(validateSpecUniqueness),
         R.map(renameSchemas),
         deepMergeSpecs,
         spec => ({
             ...spec,
             info: {
-                title: 'Combined OpenAPI Spec',
+                title,
                 version: spec.info.version
             }
         })
