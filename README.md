@@ -12,4 +12,10 @@ To run:
 bun merge.ts specA.json specB.json specC.json > specD.json
 ```
 
+To build the cli tool:
+
+```bash
+bun build --compile --outfile=openapi-merge ./src/cli.tsx
+```
+
 
