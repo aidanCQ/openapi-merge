@@ -19,15 +19,7 @@ function validateSpecUniqueness(specs: Spec[]): void {
     if (has_mismatched_versions) throw new Error('Openapi specs must have the same version');
 }
 
-function renameSpec(spec: Spec): Spec {
-    return {
-        ...spec,
-        info: {
-            title: 'Combined OpenAPI Spec',
-            version: spec.info.version
-        }
-    }
-}
+
 
 function deepMergeSpecs(specs: Spec[]): Spec {
     const [first, ...rest] = specs;
@@ -40,7 +32,13 @@ export default function mergeSpecs(specs: Spec[]): Spec {
         R.tap(validateSpecUniqueness),
         R.map(renameSchemas),
         deepMergeSpecs,
-        renameSpec
+        spec => ({
+            ...spec,
+            info: {
+                title: 'Combined OpenAPI Spec',
+                version: spec.info.version
+            }
+        })
     );
 
 }
