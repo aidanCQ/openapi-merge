@@ -7,7 +7,7 @@ This tool can be run with a js runtime (e.g. Bun) or as a standalone CLI tool.
 
 ## Install bun and dependencies:
 
-Install from https://bun.com/ or use devenv.
+Install from https://bun.com/ or use `devenv.nix`.
 
 ```bash
 bun install
