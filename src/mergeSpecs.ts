@@ -2,13 +2,19 @@ import * as R from 'remeda';
 import z from 'zod';
 import { specSchema, type Spec } from './types';
 
+
+const schemaName = (key: string) => new RegExp(`\\b${key}\\b`, 'g');
+const schemaRef = (key: string) => new RegExp(`\\b#/components/schemas/${key}\\b`, 'g')
 function renameSchemas(spec: Spec): Spec {
-    const key_map = R.pipe(spec.components.schemas, R.keys(), (old_keys) => old_keys.map(old_key => ({ old_key, new_key: `${spec.info.title}_${old_key}` })));
-    let spec_as_str = JSON.stringify(spec);
-    const spec_as_str_2 = key_map.reduce<string>((acc, { old_key, new_key }) => {
-        return R.pipe(acc, txt => txt.replace(new RegExp(`\\b${old_key}\\b`, 'g'), new_key), txt => txt.replace(new RegExp(`\\b#/components/schemas/${old_key}\\b`, 'g'), new_key))
-    }, spec_as_str)
-    return JSON.parse(spec_as_str_2) as Spec;
+    return R.pipe(
+        spec.components.schemas,
+        R.keys(),
+        (keys) => keys.map(key => ({ key, new_key: `${spec.info.title}_${key}` })),
+        (keys) => keys.reduce<string>((acc, { key, new_key }) => {
+            return R.pipe(acc, txt => txt.replace(schemaName(key), new_key), txt => txt.replace(schemaRef(key), new_key))
+        }, JSON.stringify(spec)),
+        JSON.parse
+    )
 }
 
 function validateSpecUniqueness(specs: Spec[]): void {
