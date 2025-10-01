@@ -5,7 +5,9 @@ A very basic tool for combining openapi JSON specifications together. The `compo
 This tool can be run with a js runtime (e.g. Bun) or as a standalone CLI tool.
 
 
-Install dependencies:
+Install bun and dependencies:
+
+https://bun.com/
 
 ```bash
 bun install
