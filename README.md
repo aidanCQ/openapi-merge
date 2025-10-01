@@ -5,7 +5,7 @@ A very basic tool for combining openapi JSON specifications together. The `compo
 This tool can be run with a js runtime (e.g. Bun) or as a standalone CLI tool.
 
 
-# Install bun and dependencies:
+## Install bun and dependencies:
 
 https://bun.com/
 
@@ -13,13 +13,13 @@ https://bun.com/
 bun install
 ```
 
-# Run with Bun
+## Run with Bun
 
 ```bash
 bun src/cli.ts test/exampleSpecA.json test/exampleSpecB.json test/exampleSpecC.json > output.json
 ```
 
-# Run with CLI tool
+## Run with CLI tool
 
 Build the CLI tool:
 
