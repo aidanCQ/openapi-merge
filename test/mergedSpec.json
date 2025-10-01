@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Combined OpenAPI Schema",
+    "title": "Weather_API+E-Commerce_API+User_Management_API",
     "version": "1.0.0"
   },
   "paths": {
@@ -24,7 +24,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/WeatherResponse"
+                  "$ref": "#/components/schemas/Weather_API_WeatherResponse"
                 }
               }
             }
@@ -40,18 +40,18 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/E-Commerce API_ProductInput"
+                "$ref": "#/components/schemas/E-Commerce_API_ProductInput"
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "E-Commerce API_Product created successfully",
+            "description": "E-Commerce_API_Product created successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/E-Commerce API_Product"
+                  "$ref": "#/components/schemas/E-Commerce_API_Product"
                 }
               }
             }
@@ -74,11 +74,11 @@
         ],
         "responses": {
           "200": {
-            "description": "User Management API_User profile retrieved successfully",
+            "description": "User_Management_API_User profile retrieved successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User Management API_User"
+                  "$ref": "#/components/schemas/User_Management_API_User"
                 }
               }
             }
@@ -89,7 +89,7 @@
   },
   "components": {
     "schemas": {
-      "WeatherResponse": {
+      "Weather_API_WeatherResponse": {
         "type": "object",
         "properties": {
           "city": {
@@ -120,7 +120,7 @@
           }
         }
       },
-      "E-Commerce API_ProductInput": {
+      "E-Commerce_API_ProductInput": {
         "type": "object",
         "required": [
           "name",
@@ -142,10 +142,10 @@
           }
         }
       },
-      "E-Commerce API_Product": {
+      "E-Commerce_API_Product": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/E-Commerce API_ProductInput"
+            "$ref": "#/components/schemas/E-Commerce_API_ProductInput"
           },
           {
             "type": "object",
@@ -163,7 +163,7 @@
           }
         ]
       },
-      "User Management API_User": {
+      "User_Management_API_User": {
         "type": "object",
         "properties": {
           "id": {
