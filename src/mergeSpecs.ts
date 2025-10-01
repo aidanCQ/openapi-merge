@@ -25,7 +25,7 @@ function deepMergeSpecs(specs: Spec[]): Spec {
     return rest.reduce((acc, spec) => R.mergeDeep(acc, spec), first)
 }
 
-export default function mergeSpecs(specs: Spec[], title: string): Spec {
+export default function mergeSpecs(specs: Spec[]): Spec {
     return R.pipe(
         specs,
         z.array(specSchema).min(2, { error: 'Please provide at least 2 openapi spec paths.' }).parse,
@@ -35,7 +35,7 @@ export default function mergeSpecs(specs: Spec[], title: string): Spec {
         spec => ({
             ...spec,
             info: {
-                title,
+                title: specs.map(({ info }) => info.title).join("+"),
                 version: spec.info.version
             }
         })
