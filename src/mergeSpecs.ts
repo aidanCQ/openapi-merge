@@ -19,8 +19,6 @@ function validateSpecUniqueness(specs: Spec[]): void {
     if (has_mismatched_versions) throw new Error('Openapi specs must have the same version');
 }
 
-
-
 function deepMergeSpecs(specs: Spec[]): Spec {
     const [first, ...rest] = specs;
     return rest.reduce((acc, spec) => R.mergeDeep(acc, spec), first)
