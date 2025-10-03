@@ -3,15 +3,15 @@ import z from 'zod';
 import { specSchema, type Spec } from './types';
 
 
-const schemaName = (key: string) => new RegExp(`\\b${key}\\b`, 'g');
-const schemaRef = (key: string) => new RegExp(`\\b#/components/schemas/${key}\\b`, 'g')
+const componentKeyLookup = (key: string) => new RegExp(`\\b${key}\\b`, 'g');
+const componentRefLookup = (key: string) => new RegExp(`\\b#/components/schemas/${key}\\b`, 'g')
 function renameSchemas(spec: Spec): Spec {
     return R.pipe(
         spec.components.schemas,
         R.keys(),
         (keys) => keys.map(key => ({ key, new_key: `${spec.info.title}_${key}` })),
         (keys) => keys.reduce<string>((acc, { key, new_key }) => {
-            return R.pipe(acc, txt => txt.replace(schemaName(key), new_key), txt => txt.replace(schemaRef(key), new_key))
+            return R.pipe(acc, txt => txt.replace(componentKeyLookup(key), new_key), txt => txt.replace(componentRefLookup(key), new_key))
         }, JSON.stringify(spec)),
         JSON.parse
     )
