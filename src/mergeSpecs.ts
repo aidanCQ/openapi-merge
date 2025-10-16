@@ -28,7 +28,22 @@ function validateSpecUniqueness(specs: Spec[]): void {
 
 function deepMergeSpecs(specs: Spec[]): Spec {
     const [first, ...rest] = specs;
-    return rest.reduce((acc, spec) => R.mergeDeep(acc, spec), first)
+    return rest.reduce((acc, spec): Spec=> ({
+        'components':{
+            ...acc.components,
+            ...spec.components,
+        },
+        paths: {
+            ...acc.paths,
+            ...spec.paths,
+        },
+        tags: [
+            ...acc.tags,
+            ...spec.tags,
+        ],
+        info: first.info,
+        openapi: first.openapi
+    }), first)
 }
 
 export default function mergeSpecs(specs: Spec[]): Spec {
