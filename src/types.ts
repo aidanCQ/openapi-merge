@@ -9,3 +9,5 @@ export const specSchema = z.object({
 })
 
 export type Spec = z.infer<typeof specSchema>
+
+export type SubSpec = Omit<Spec, 'openapi' | 'info'>

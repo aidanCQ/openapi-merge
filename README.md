@@ -16,7 +16,7 @@ bun install
 ## Run with Bun
 
 ```bash
-bun src/cli.ts test/exampleSpecA.json test/exampleSpecB.json test/exampleSpecC.json > output.json
+bun src/cli.ts test/exampleSpecA.json test/exampleSpecB.json test/exampleSpecC.json --title="custom_title" > output.json
 ```
 
 ## Run with CLI tool

@@ -1,6 +1,6 @@
 import * as R from 'remeda';
 import z from 'zod';
-import { specSchema, type Spec } from './types';
+import { specSchema, type Spec, type SubSpec } from './types';
 
 
 const componentKeyLookup = (key: string) => new RegExp(`\\b${key}\\b`, 'g');
@@ -26,9 +26,9 @@ function validateSpecUniqueness(specs: Spec[]): void {
     if (has_mismatched_versions) throw new Error('Openapi specs must have the same version');
 }
 
-function deepMergeSpecs(specs: Spec[]): Spec {
+function deepMergeSpecs(specs: SubSpec[]): SubSpec {
     const [first, ...rest] = specs;
-    return rest.reduce((acc, spec): Spec=> ({
+    return rest.reduce((acc, spec): SubSpec => ({
         'components':{
             ...acc.components,
             ...spec.components,
@@ -41,12 +41,10 @@ function deepMergeSpecs(specs: Spec[]): Spec {
             ...acc.tags,
             ...spec.tags,
         ],
-        info: first.info,
-        openapi: first.openapi
     }), first)
 }
 
-export default function mergeSpecs(specs: Spec[]): Spec {
+export default function mergeSpecs(specs: Spec[], title: string): Spec {
     return R.pipe(
         specs,
         z.array(specSchema).min(2, { error: 'Please provide at least 2 openapi spec paths.' }).parse,
@@ -56,12 +54,13 @@ export default function mergeSpecs(specs: Spec[]): Spec {
             return renameSchemas(spec);
         }),
         deepMergeSpecs,
-        spec => ({
-            ...spec,
+        sub_spec => ({
+            ...sub_spec,
             info: {
-                title: specs.map(({ info }) => info.title.replaceAll(" ", "_")).join("+"),
-                version: spec.info.version
-            }
+                title: title || specs.map(({ info }) => info.title.replaceAll(" ", "_")).join("+"),
+                version: specs[0].info.version
+            },
+            openapi: specs[0].openapi
         })
     );
 
