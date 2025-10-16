@@ -55,12 +55,12 @@ export default function mergeSpecs(specs: Spec[], title: string): Spec {
         }),
         deepMergeSpecs,
         sub_spec => ({
-            ...sub_spec,
             info: {
                 title: title || specs.map(({ info }) => info.title.replaceAll(" ", "_")).join("+"),
                 version: specs[0].info.version
             },
-            openapi: specs[0].openapi
+            openapi: specs[0].openapi,
+            ...sub_spec,
         })
     );
 
