@@ -36,7 +36,10 @@ export default function mergeSpecs(specs: Spec[]): Spec {
         specs,
         z.array(specSchema).min(2, { error: 'Please provide at least 2 openapi spec paths.' }).parse,
         R.tap(validateSpecUniqueness),
-        R.map(renameSchemas),
+        R.map((spec, idx) => {
+            if (idx === 0) return spec;
+            return renameSchemas(spec);
+        }),
         deepMergeSpecs,
         spec => ({
             ...spec,
