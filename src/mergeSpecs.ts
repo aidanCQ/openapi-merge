@@ -34,8 +34,11 @@ function deepMergeSpecs(specs: SubSpec[]): SubSpec {
             ...spec.paths,
         },
         components:{
-            ...acc.components,
-            ...spec.components,
+            schemas: {
+            ...acc.components.schemas,
+            ...spec.components.schemas,
+            }
+
         },
         tags: [
             ...acc.tags,
