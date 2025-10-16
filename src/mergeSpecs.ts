@@ -29,18 +29,18 @@ function validateSpecUniqueness(specs: Spec[]): void {
 function deepMergeSpecs(specs: SubSpec[]): SubSpec {
     const [first, ...rest] = specs;
     return rest.reduce((acc, spec): SubSpec => ({
-        'components':{
-            ...acc.components,
-            ...spec.components,
-        },
-        paths: {
+         paths: {
             ...acc.paths,
             ...spec.paths,
         },
-        tags: [
+        components:{
+            ...acc.components,
+            ...spec.components,
+        },
+        tags: R.sortBy([
             ...acc.tags,
             ...spec.tags,
-        ],
+        ], R.prop('name')),
     }), first)
 }
 
