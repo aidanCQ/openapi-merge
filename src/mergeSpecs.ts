@@ -37,10 +37,10 @@ function deepMergeSpecs(specs: SubSpec[]): SubSpec {
             ...acc.components,
             ...spec.components,
         },
-        tags: R.sortBy([
+        tags: [
             ...acc.tags,
             ...spec.tags,
-        ], R.prop('name')),
+        ],
     }), first)
 }
 
@@ -61,6 +61,7 @@ export default function mergeSpecs(specs: Spec[], title: string): Spec {
             },
             openapi: specs[0].openapi,
             ...sub_spec,
+            tags:  R.sortBy(sub_spec.tags, R.prop('name'))
         })
     );
 
