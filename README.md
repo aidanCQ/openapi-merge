@@ -30,7 +30,7 @@ bun build --compile --outfile=openapi-merge-cli ./src/cli.ts
 Run the CLI tool:
 
 ```bash
-./openapi-merge-cli test/exampleSpecA.json test/exampleSpecB.json test/exampleSpecC.json > output.json
+./openapi-merge-cli test/exampleSpecA.json test/exampleSpecB.json test/exampleSpecC.json --title="custom_title" > output.json
 ```
 
 
